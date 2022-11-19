@@ -3,6 +3,7 @@ import styles from "./Game.module.css";
 
 import GameOption from "../gameOption/GameOption";
 import GameInfo from "../gameInfo/GameInfo";
+import Score from "../score/Score";
 
 const winnerTable = [
   [0, 1, 2],
@@ -45,49 +46,52 @@ function Game() {
     setGameState(Array(9).fill(0));
     setWinner(0);
     setWinnerLine([]);
-    setDraw(false)
+    setDraw(false);
   };
 
   const verifyDraw = () => {
     // if(gameState.filter((value) => value === 0).length === 0)
-    if(gameState.find((value) => value === 0) === undefined && winner === 0) {
-      setDraw(true)
+    if (gameState.find((value) => value === 0) === undefined && winner === 0) {
+      setDraw(true);
     }
-  }
+  };
 
-  const verifyWinnerLine = (pos) => 
-  winnerLine.find((value) => value === pos) !== undefined;
+  const verifyWinnerLine = (pos) =>
+    winnerLine.find((value) => value === pos) !== undefined;
 
   useEffect(() => {
     setCurrentPlayer(currentPlayer * -1);
-    verifyDraw()
+    verifyDraw();
     verifyGame();
   }, [gameState]);
 
   useEffect(() => {
-    if(winner !== 0) setDraw(false);
-}, [winner])
+    if (winner !== 0) setDraw(false);
+  }, [winner]);
 
   return (
-    <div className={styles.gameContent}>
-      <div className={styles.game}>
-        {gameState.map((value, position) => (
-          <GameOption
-            key={`game-option-pos-${position}`}
-            status={value}
-            onClick={() => handleClick(position)}
-            isWinner={verifyWinnerLine(position)}
-            isDraw={draw}
-          />
-        ))}
+    <>
+      <div className={styles.gameContent}>
+        <div className={styles.game}>
+          {gameState.map((value, position) => (
+            <GameOption
+              key={`game-option-pos-${position}`}
+              status={value}
+              onClick={() => handleClick(position)}
+              isWinner={verifyWinnerLine(position)}
+              isDraw={draw}
+            />
+          ))}
+        </div>
+        <GameInfo
+          currentPlayer={currentPlayer}
+          winner={winner}
+          onReset={handleReset}
+          isDraw={draw}
+        />
       </div>
-      <GameInfo
-        currentPlayer={currentPlayer}
-        winner={winner}
-        onReset={handleReset}
-        isDraw={draw}
-      />
-    </div>
+      <Score />
+    </>
   );
 }
 
