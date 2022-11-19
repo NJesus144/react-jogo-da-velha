@@ -19,9 +19,10 @@ function Game() {
   const [gameState, setGameState] = useState(Array(9).fill(0));
   const [currentPlayer, setCurrentPlayer] = useState(-1);
   const [winner, setWinner] = useState(0);
+  const [winnerLine, setWinnerLine] = useState([]);
 
   const handleClick = (position) => {
-    if (gameState[position] === 0 && winner === 0 ) {
+    if (gameState[position] === 0 && winner === 0) {
       let newGameState = [...gameState];
       newGameState[position] = currentPlayer;
       setGameState(newGameState);
@@ -31,15 +32,22 @@ function Game() {
   const verifyGame = () => {
     winnerTable.forEach((row) => {
       const values = row.map((pos) => gameState[pos]);
-      const sum = values.reduce((sum, val) => sum + val)
-      if(sum === 3 || sum === -3) setWinner(sum/3)   
-    })
+      const sum = values.reduce((sum, val) => sum + val);
+      if (sum === 3 || sum === -3) {
+        setWinner(sum / 3);
+        setWinnerLine(row);
+      }
+    });
   };
 
   const handleReset = () => {
-    setGameState(Array(9).fill(0))
-    setWinner(0)
-  }
+    setGameState(Array(9).fill(0));
+    setWinner(0);
+    setWinnerLine([]);
+  };
+
+  const verifyWinnerLine = (pos) => 
+  winnerLine.find((value) => value === pos) !== undefined;
 
   useEffect(() => {
     setCurrentPlayer(currentPlayer * -1);
@@ -54,10 +62,11 @@ function Game() {
             key={`game-option-pos-${position}`}
             status={value}
             onClick={() => handleClick(position)}
+            isWinner={verifyWinnerLine(position)}
           />
         ))}
-      </div>    
-      <GameInfo 
+      </div>
+      <GameInfo
         currentPlayer={currentPlayer}
         winner={winner}
         onReset={handleReset}
