@@ -10,14 +10,14 @@ function GameInfo({ currentPlayer, winner, onReset, isDraw }) {
       {
       !isDraw && winner === 0 && (
         <>
-          <h4>Próximo a jogar:</h4>
+          <h4>Próximo a jogar :</h4>
           {currentPlayer === 1 && <Icon iconName="circle" />}
           {currentPlayer === -1 && <Icon iconName="x" />}
         </>
       )}
       {!isDraw && winner !== 0 && (
         <>
-          <h4>Fim de Jogo! Campeão:</h4>
+          <h4>Fim de Jogo! Vencedor :</h4>
           {winner === 1 && <Icon iconName="circle" />}
           {winner === -1 && <Icon iconName="x" />}
         </>
