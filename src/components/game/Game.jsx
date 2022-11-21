@@ -38,14 +38,14 @@ function Game() {
       const values = row.map((pos) => gameState[pos]);
       const sum = values.reduce((sum, val) => sum + val);
       if (sum === 3 || sum === -3) {
-        virifyWinner(sum);
+        verifyWinner(sum);
         setWinner(sum / 3);
         setWinnerLine(row);
       }
     });
   };
 
-  const virifyWinner = (sum) => {
+  const verifyWinner = (sum) => {
     if (sum / 3 === 1) return setCircleWinner(circleWinner + 1);
    if (sum / 3 === -1) return setXWinner(xWinner + 1);
   };
