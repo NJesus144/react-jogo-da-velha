@@ -1,5 +1,5 @@
 import styles from "./GameInfo.module.css";
-import Icon from "../icon/Icon";
+import Icon from '../../components/icon/Icon'
 import Button from "../button/Button";
 
 function GameInfo({ currentPlayer, winner, onReset, isDraw }) {

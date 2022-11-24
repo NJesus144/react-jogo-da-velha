@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 
 import styles from "./GameOption.module.css";
-import Icon from "../icon/Icon";
+import Icon from '../../components/icon/Icon'
 
 const GameIcon = ({ iconName }) => <Icon iconName={iconName} size="25px" />
 
